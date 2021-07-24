@@ -16,6 +16,9 @@ main{
     padding: 50px 0;
 }
 
+.card-img, .card-img-top {
+    margin-top: 10px;
+}
 .loader {
     position: relative;
     top: 50%;

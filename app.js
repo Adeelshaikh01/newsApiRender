@@ -3,15 +3,24 @@ let newsCard = document.getElementById("newsCard");
 let loader = document.getElementById("loader")
 
 let getNewstitle = () => {
-    removeData();
-    setTimeout(() => {
-        loader.setAttribute("class", "loader hide")
-    }, 1000);
+   return new Promise((resolve,reject) =>{
+        removeData();
+        setTimeout(() => {
+            loader.setAttribute("class", "loader hide")
+        }, 1000);
     
-    fetch(`https://newsapi.org/v2/everything?q=${newsTitle.value}&from=2021-06-23&sortBy=publishedAt&apiKey=0ba3a1a51e8a41ba84aef40a1e16ad08`)
-    .then(response => response.json())
-    .then(json => getData(json))
-    loader.setAttribute("class", "loader")
+       fetch(`https://newsapi.org/v2/everything?q=${newsTitle.value}&from=2021-06-24&sortBy=publishedAt&apiKey=40ea26f0de7e40b9bd565e04dce12a20`)
+       .then(response => response.json())
+       .then(json => {
+           resolve(getData(json))
+       })
+       .catch(err =>{
+        $('#exampleModal').modal('show')
+        var exampleModalLabel = document.getElementsByClassName('modal-body')
+        exampleModalLabel[0].innerHTML = err;
+       })
+       loader.setAttribute("class", "loader")
+   })
 }
 
 let getData = (value) => {
@@ -27,7 +36,6 @@ let getData = (value) => {
         newsCard.innerHTML += fecthNews;
     }
 }
-
 
 function removeData() {
     var selectData = document.getElementsByClassName("card")
